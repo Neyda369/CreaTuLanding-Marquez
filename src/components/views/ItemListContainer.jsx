@@ -1,4 +1,3 @@
-// components/ItemListContainer.jsx
 import React from 'react';
 
 function ItemListContainer({ greeting }) {

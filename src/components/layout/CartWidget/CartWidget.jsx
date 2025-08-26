@@ -1,4 +1,3 @@
-// components/CartWidget.jsx
 import React from 'react';
 
 function CartWidget() {
