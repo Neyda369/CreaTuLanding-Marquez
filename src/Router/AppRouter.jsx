@@ -1,19 +1,23 @@
-// AppRouter.jsx
+import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Inicio from '../components/views/Inicio';
-import Productos from '../components/views/Productos';
-import Categoria from '../components/views/Categoria';
-import DetalleProducto from '../components/views/DetalleProducto';
-import Contacto from '../components/views/Contacto'
 
-export default function AppRouter() {
+import HomePage from '../pages/HomePage.jsx';
+import CatalogoPage from '../pages/CatalogoPage.jsx'; // Mantenemos esta página
+import ItemDetailContainer from '../components/ItemDetailContainer/ItemDetailContainer.jsx';
+import NotFoundPage from '../pages/NotFoundPage.jsx';
+
+const AppRouter = () => {
     return (
         <Routes>
-            <Route path="/" element={<Inicio />} />
-            <Route path="/productos" element={<Productos />} />
-            <Route path="/categoria/:nombre" element={<Categoria />} />
-            <Route path="/producto/:id" element={<DetalleProducto />} />
-            <Route path="/contacto" element={<Contacto />} />
+            <Route path="/" element={<HomePage />} />
+            {/* Ruta para el catálogo completo */}
+            <Route path="/catalogo" element={<CatalogoPage />} />
+            {/* Ruta para el catálogo filtrado por categoría */}
+            <Route path="/catalogo/:categoryId" element={<CatalogoPage />} />
+            <Route path="/item/:itemId" element={<ItemDetailContainer />} />
+            <Route path="*" element={<NotFoundPage />} />
         </Routes>
     );
-}
+};
+
+export default AppRouter;
