@@ -1,22 +1,42 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom'; 
-import CategoryCard from '../components/CategoryCard/CategoryCard.jsx'; 
-import './HomePage.css'; 
+// src/pages/HomePage.jsx
+
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import CategoryCard from '../components/CategoryCard/CategoryCard.jsx';
+import './HomePage.css';
+
+// ✨ Importamos la función de nuestro nuevo servicio de categorías
+import { getAllCategories } from '../services/categories.js';
 
 const HomePage = () => {
-    const navigate = useNavigate(); // Hook para la navegación 
+    const navigate = useNavigate();
 
-    const categoriesData = [
-        { id: 'perros', name: 'Perros', image: '/assets/categorias/perro-1.jpg' },
-        { id: 'gatos', name: 'Gatos', image: '/assets/categorias/gato-3.jpeg' },
-        { id: 'conejos', name: 'Conejos', image: '/assets/categorias/conejo-3.jpeg' },
-        { id: 'aves', name: 'Aves', image: '/assets/categorias/aves-1.jpeg' },
-        { id: 'tortugas', name: 'Tortugas', image: '/assets/categorias/tortuga-1.jpeg' },
-    ];
+    const [categories, setCategories] = useState([]);
+    const [loadingCategories, setLoadingCategories] = useState(true);
+    const [errorCategories, setErrorCategories] = useState(null);
+
+    useEffect(() => {
+        setLoadingCategories(true);
+        setErrorCategories(null);
+
+        const fetchCategories = async () => {
+            try {
+                const fetchedCategories = await getAllCategories();
+                setCategories(fetchedCategories);
+            } catch (err) {
+                console.error("Error al obtener las categorías:", err);
+                setErrorCategories('Hubo un error al cargar las categorías. Por favor, inténtalo de nuevo.');
+            } finally {
+                setLoadingCategories(false);
+            }
+        };
+
+        fetchCategories();
+    }, []);
 
     const handleCategoryClick = (categoryId) => {
-        // Navega a la página de catálogo y pasa la categoría como estado
-        navigate(`/catalogo/${categoryId}`);
+        // ✨ Navega a la ruta de categoría correcta (según AppRouter)
+        navigate(`/category/${categoryId}`);
     };
 
     return (
@@ -29,8 +49,8 @@ const HomePage = () => {
                         Descubre nuestra gran variedad de productos para el bienestar de tus amigos peludos.
                         ¡Calidad y amor en cada artículo! Envíos Gratis.
                     </p>
-                    {/* Botón a la sección de categorías o al catálogo completo */}
-                    <Link to="/catalogo" className="main-call-to-action-button">Ver Catálogo Completo</Link>
+                    {/* ✨ Botón a la sección de catálogo completo */}
+                    <Link to="/products" className="main-call-to-action-button">Ver Catálogo Completo</Link>
                 </div>
             </div>
 
@@ -56,34 +76,37 @@ const HomePage = () => {
                 </div>
             </div>
 
-            {/* SECCIÓN 3: Categorías de Productos - Con las tarjetas que pides */}
+            {/* SECCIÓN 3: Categorías de Productos */}
             <div className="categories-section" id="seccion-categorias">
                 <h2 className="section-title">Explora por Categoría</h2>
                 <div className="category-cards-container">
-                    {categoriesData.map(category => (
-                        <CategoryCard
-                            key={category.id}
-                            category={category}
-                            onClick={() => handleCategoryClick(category.id)}
-                        />
-                    ))}
+                    {loadingCategories ? (
+                        <div className="category-message loading">Cargando categorías...</div> // ✨ Usamos clases
+                    ) : errorCategories ? (
+                        <div className="category-message error">{errorCategories}</div> // ✨ Usamos clases
+                    ) : (
+                        categories.map(category => (
+                            <CategoryCard
+                                key={category.id}
+                                category={category}
+                                onClick={() => handleCategoryClick(category.id)}
+                            />
+                        ))
+                    )}
                 </div>
             </div>
 
-            {/* SECCIÓN 4: Productos Destacados/Promociones (Porque quiero que esté esta sección) */}
-
+            {/* SECCIÓN 4: Productos Destacados/Promociones */}
             <div className="featured-products-section">
                 <h2 className="section-title">Productos que te encantarán</h2>
-                {/* Por ahora, un placeholder. Más adelante productos reales. */}
                 <div className="featured-placeholder">
                     <p>Aquí irán productos en promoción o los más populares.</p>
-                    <Link to="/catalogo" className="secondary-call-to-action-button">Ver Ofertas</Link>
+                    <Link to="/products" className="secondary-call-to-action-button">Ver Ofertas</Link>
                 </div>
             </div>
-
-
         </div>
     );
 };
 
 export default HomePage;
+

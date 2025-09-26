@@ -1,0 +1,29 @@
+/* src/components/ItemDetailContainer/ItemDetailContainer.css */
+
+.item-detail-container-message {
+    text-align: center;
+    padding: 5rem;
+    font-size: 1.5rem;
+    color: #555;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    margin: 2rem auto;
+    max-width: 800px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.item-detail-container-message.loading {
+    color: #007bff;
+}
+
+.item-detail-container-message.error {
+    color: #dc3545;
+    background-color: #ffebeb;
+}
+
+.item-detail-container-message.no-product {
+    color: #6c757d;
+}
+
+/* Puedes añadir más estilos específicos para este contenedor si lo necesita,
+   aunque ItemDetail suele manejar la mayoría de los estilos. */

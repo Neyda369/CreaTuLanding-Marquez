@@ -1,48 +1,50 @@
-// ItemListContainer.jsx
-import React, { useState, useEffect } from 'react';
-import productosData from '../../data/productos.json';
-import ItemList from './ItemList.jsx';
+// src/components/ItemListContainer/ItemListContainer.jsx
 
-// El componente recibe la categoría como una prop
-const ItemListContainer = ({ categoryId }) => {
-   
-    const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { db } from '../../services/firebase'; // <--- ¡RUTA CORREGIDA AQUÍ!
+import { collection, getDocs, query, where } from 'firebase/firestore';
+
+const ItemListContainer = () => {
+    const { categoryId } = useParams();
+    const [items, setItems] = useState([]);
 
     useEffect(() => {
-        setLoading(true);
+        const fetchItems = async () => {
+            let itemsRef = collection(db, 'products');
+            let q = categoryId ? query(itemsRef, where('category', '==', categoryId)) : itemsRef;
 
-        const getProducts = new Promise((resolve) => {
-            let filteredProducts = productosData;
-            if (categoryId) {
-                filteredProducts = productosData.filter(prod => prod.categoria === categoryId);
-            }
-            resolve(filteredProducts);
-        });
+            const snapshot = await getDocs(q);
+            const products = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+            setItems(products);
+        };
 
-        getProducts
-            .then(result => {
-                setProducts(result);
-            })
-            .catch(error => {
-                console.error(error);
-            })
-            .finally(() => {
-                setLoading(false);
-            });
-
-    }, [categoryId]); 
-
-    if (loading) {
-        return <div style={{ textAlign: 'center', padding: '5rem' }}>Cargando productos...</div>;
-    }
+        fetchItems();
+    }, [categoryId]);
 
     return (
-        <div style={{ padding: '2rem' }}>
-            <h2 style={{ textAlign: 'center', margin: '2rem 0' }}>Nuestro Catálogo de Productos</h2>
-            <ItemList products={products} />
+        <div className="catalogo">
+            <h2>Catálogo {categoryId ? `- ${categoryId}` : ''}</h2>
+            <div className="product-list">
+                {items.length > 0 ? (
+                    items.map(item => (
+                        <div key={item.id} className="product-card">
+                            {/* La imagen no se cargará si item.imageUrl no existe, pero los demás datos sí deberían aparecer */}
+                            <img src={item.imageUrl} alt={item.name} />
+                            <h3>{item.name}</h3>
+                            <p>{item.description}</p>
+                            <p>${item.price}</p>
+                        </div>
+                    ))
+                ) : (
+                    <p>No hay productos disponibles.</p>
+                )}
+            </div>
         </div>
     );
 };
 
 export default ItemListContainer;
+
+
+

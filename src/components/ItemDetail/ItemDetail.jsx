@@ -1,8 +1,22 @@
 import React from 'react';
-import ItemCount from '../ItemCount/ItemCount.jsx'; // Importa el contador
-import './ItemDetail.css'; 
+import { Link } from 'react-router-dom';
+import ItemCount from '../ItemCount/ItemCount.jsx';
+import './ItemDetail.css';
+import { useCart } from '../../context/CartContext.js';
 
 const ItemDetail = ({ item }) => {
+    const { addItem, isInCart } = useCart();
+
+    const handleAddToCart = (quantity) => {
+        addItem({
+            id: item.id,
+            name: item.nombre,
+            price: item.precio,
+            stock: item.stock,
+            imageUrl: item.imagen,
+        }, quantity);
+    };
+
     return (
         <div className="item-detail">
             <div className="item-detail-image-container">
@@ -14,9 +28,12 @@ const ItemDetail = ({ item }) => {
                 <p className="item-detail-description">{item.descripcion}</p>
                 <p className="item-detail-price">${item.precio}</p>
                 <p className="item-detail-stock">Stock disponible: {item.stock}</p>
-                
-                {/* Aquí va el componente ItemCount */}
-                <ItemCount stock={item.stock} initial={1} onAdd={() => console.log("Se agregó al carrito")} />
+
+                {isInCart(item.id) ? (
+                    <p className="item-in-cart-message">Este producto ya está en tu carrito. <Link to="/cart">Ver Carrito</Link></p>
+                ) : (
+                    <ItemCount stock={item.stock} initial={1} onAdd={handleAddToCart} />
+                )}
             </div>
         </div>
     );

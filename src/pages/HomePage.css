@@ -1,254 +1,159 @@
-/* Estilos para la SECCIÓN 1: Banner Principal */
-.landing-page {
-    height: calc(100vh - 80px);
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    background-image: url(../../public/assets/img-perro.jpg);
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    padding: 0 2rem;
-}
+/* src/pages/HomePage.css (Ejemplo de estilos que podrían ir aquí) */
 
-.landing-page::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: 1;
+.landing-page {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/public/assets/img-perro.jpg') no-repeat center center;
+    background-size: cover;
+    color: white;
+    text-align: center;
+    padding: 8rem 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh; /* Ajusta esto según tu diseño */
 }
 
 .landing-content {
-    position: relative;
-    z-index: 2;
-    color: white;
-    padding: 0 4rem;
-    max-width: 700px;
-    text-align: left;
-
+    max-width: 800px;
 }
 
 .welcome-title {
-    font-size: 4rem;
-    font-weight: 700;
+    font-size: 3.5rem;
     margin-bottom: 1.5rem;
-    text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+    line-height: 1.1;
 }
 
 .welcome-text {
-    font-size: 1.4rem;
-    font-weight: 300;
+    font-size: 1.3rem;
     margin-bottom: 2.5rem;
-    line-height: 1.6;
+    line-height: 1.5;
 }
 
 .main-call-to-action-button {
-    display: inline-block;
-    padding: 1rem 2.5rem;
-    border-radius: 50px;
     background-color: #ff9100;
     color: white;
-    font-weight: 600;
-    text-decoration: none;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    padding: 1rem 2rem;
     font-size: 1.2rem;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
 }
 
 .main-call-to-action-button:hover {
-    background-color: #e07b00;
-    transform: translateY(-2px);
+    background-color: #e68200;
 }
 
-/* Estilos generales para las secciones */
 .section-title {
     text-align: center;
     font-size: 2.5rem;
-    margin: 4rem 0 3rem 0;
     color: #333;
-    font-weight: 700;
+    margin: 3rem 0;
 }
 
-/* Estilos para la SECCIÓN 2: Destacados/Servicios */
 .features-section {
-    padding: 4rem 2rem;
+    padding: 3rem 0;
     background-color: #f9f9f9;
 }
 
 .feature-cards {
     display: flex;
     justify-content: center;
+    gap: 2rem;
     flex-wrap: wrap;
-    gap: 3rem;
-    max-width: 1200px;
-    margin: 0 auto;
+    padding: 0 2rem;
 }
 
 .feature-card {
     background-color: white;
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     text-align: center;
-    flex: 1;
-    min-width: 280px;
-    max-width: 350px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 300px;
+    transition: transform 0.3s ease;
 }
 
 .feature-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
 }
 
 .feature-icon {
     font-size: 3rem;
-    color: #ff9100;
     margin-bottom: 1rem;
     display: block;
 }
 
 .feature-card h3 {
     font-size: 1.5rem;
-    color: #333;
     margin-bottom: 0.8rem;
+    color: #444;
 }
 
 .feature-card p {
+    font-size: 1rem;
     color: #666;
-    line-height: 1.6;
 }
 
-/* Estilos para el menú de categorías */
-.category-menu {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1.5rem;
-    margin: 3rem auto;
-    max-width: 1200px;
-    padding: 0 1rem;
-}
-
-.category-button {
-    background-color: #ff9100;
-    color: white;
-    padding: 0.8rem 1.5rem;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    font-size: 1.05rem;
-    font-weight: 600;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    white-space: nowrap;
-    
-}
-
-.category-button:hover {
-    background-color: #e07b00;
-    transform: translateY(-2px);
-    
-}
-
-.category-button.active {
-    background-color: #e07b00;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-    transform: translateY(0);
-   
-}
-
-/* Estilos para la SECCIÓN 3: Categorías de Productos */
 .categories-section {
-    padding: 4rem 2rem;
-    background-color: #fff;
-
+    padding: 3rem 0;
 }
 
 .category-cards-container {
     display: flex;
     justify-content: center;
+    gap: 1.5rem;
     flex-wrap: wrap;
-    gap: 2.5rem;
-    max-width: 1200px;
-    margin: 0 auto;
+    padding: 0 2rem;
 }
 
-/* Estilos para la SECCIÓN 4: Productos Destacados */
+.category-message {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.2rem;
+    color: #555;
+    width: 100%;
+}
+
+.category-message.loading {
+    color: #007bff;
+}
+
+.category-message.error {
+    color: #dc3545;
+    background-color: #ffebeb;
+    border-radius: 8px;
+}
+
 .featured-products-section {
-    padding: 4rem 2rem;
-    background-color: #f2f2f2;
+    padding: 3rem 0;
+    background-color: #f0f0f0;
     text-align: center;
 }
 
 .featured-placeholder {
-    margin-top: 2rem;
-    padding: 3rem;
-    border: 2px dashed #ccc;
-    border-radius: 10px;
-    color: #888;
-    font-size: 1.2rem;
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.featured-placeholder p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    color: #555;
 }
 
 .secondary-call-to-action-button {
-    display: inline-block;
-    padding: 0.8rem 2rem;
-    border-radius: 50px;
-    background-color: #5cb85c;
+    background-color: #007bff;
     color: white;
-    font-weight: 600;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
     text-decoration: none;
-    margin-top: 1.5rem;
+    border-radius: 5px;
     transition: background-color 0.3s ease;
 }
 
 .secondary-call-to-action-button:hover {
-    background-color: #4cae4c;
-}
-
-/* Media Queries para responsividad */
-@media (max-width: 768px) {
-    .landing-content {
-        padding: 0 2rem;
-        text-align: center;
-    }
-
-    .welcome-title {
-        font-size: 3rem;
-    }
-
-    .welcome-text {
-        font-size: 1.1rem;
-    }
-
-    .main-call-to-action-button {
-        padding: 0.8rem 2rem;
-        font-size: 1rem;
-    }
-
-    .section-title {
-        font-size: 2rem;
-        margin: 3rem 0 2rem 0;
-    }
-
-    .feature-card {
-        min-width: 250px;
-    }
-}
-
-@media (max-width: 480px) {
-    .welcome-title {
-        font-size: 2.5rem;
-    }
-
-    .welcome-text {
-        font-size: 1rem;
-    }
-
-    .feature-cards,
-    .category-cards-container {
-        gap: 1.5rem;
-    }
+    background-color: #0056b3;
 }

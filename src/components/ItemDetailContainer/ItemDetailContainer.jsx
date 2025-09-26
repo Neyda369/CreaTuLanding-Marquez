@@ -1,48 +1,63 @@
-// ItemDetailContainer.jsx
+// src/components/ItemDetailContainer/ItemDetailContainer.jsx
+
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import ItemDetail from '../ItemDetail/ItemDetail.jsx'; // Importa el componente de detalle, no el de la lista
-import productosData from '../../data/productos.json';
+import ItemDetail from '../ItemDetail/ItemDetail.jsx';
+import { getProductById } from '../../services/products.js';
+import './ItemDetailContainer.css'; // ✨ Nueva importación del CSS
 
 const ItemDetailContainer = () => {
     const { itemId } = useParams();
     const [item, setItem] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         setLoading(true);
+        setError(null);
 
-        const getItem = new Promise((resolve, reject) => {
-            const product = productosData.find(p => p.id === itemId);
-            if (product) {
-                resolve(product);
-            } else {
-                reject('Producto no encontrado');
-            }
-        });
-
-        getItem
-            .then(result => {
-                setItem(result);
-            })
-            .catch(error => {
-                console.error(error);
+        const fetchProduct = async () => {
+            try {
+                const product = await getProductById(itemId);
+                if (product) {
+                    setItem(product);
+                } else {
+                    setError('Producto no encontrado en la base de datos.');
+                    setItem(null);
+                }
+            } catch (err) {
+                console.error("Error al obtener el producto:", err);
+                setError('Hubo un error al cargar el producto. Por favor, inténtalo de nuevo.');
                 setItem(null);
-            })
-            .finally(() => {
+            } finally {
                 setLoading(false);
-            });
+            }
+        };
+
+        if (itemId) {
+            fetchProduct();
+        } else {
+            setError('No se ha proporcionado un ID de producto.');
+            setLoading(false);
+        }
+
     }, [itemId]);
 
     if (loading) {
-        return <div style={{ textAlign: 'center', padding: '5rem' }}>Cargando producto...</div>;
+        return <div className="item-detail-container-message loading">Cargando producto...</div>; // ✨ Clases CSS
+    }
+
+    if (error) {
+        return <div className="item-detail-container-message error">{error}</div>; // ✨ Clases CSS
     }
 
     if (!item) {
-        return <div style={{ textAlign: 'center', padding: '5rem', color: 'red' }}>Producto no encontrado.</div>;
+        return <div className="item-detail-container-message no-product">No se pudo encontrar el producto.</div>; // ✨ Clases CSS
     }
 
     return <ItemDetail item={item} />;
 };
 
 export default ItemDetailContainer;
+
+

@@ -1,5 +1,23 @@
 /* ItemCount.css */
 
+.count-button {
+    background-color: #ff9100;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    /* --- CAMBIOS AQUI PARA CENTRAR EL CONTENIDO --- */
+    display: flex; /* Convierte el botón en un contenedor flex */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+}
+
+/* El resto de tu CSS para ItemCount.css permanece igual */
 .item-count {
     display: flex;
     flex-direction: column;
@@ -15,18 +33,6 @@
     background-color: #eee;
     border-radius: 20px;
     padding: 0.5rem;
-}
-
-.count-button {
-    background-color: #ff9100;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: background-color 0.2s;
 }
 
 .count-button:hover {
