@@ -1,12 +1,10 @@
 // src/components/ItemListContainer/ItemListContainer.jsx
 
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { db } from '../../services/firebase'; // <--- ¡RUTA CORREGIDA AQUÍ!
+import { db } from '../../services/firebase';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 
-const ItemListContainer = () => {
-    const { categoryId } = useParams();
+const ItemListContainer = ({ categoryId }) => {
     const [items, setItems] = useState([]);
 
     useEffect(() => {
@@ -29,7 +27,6 @@ const ItemListContainer = () => {
                 {items.length > 0 ? (
                     items.map(item => (
                         <div key={item.id} className="product-card">
-                            {/* La imagen no se cargará si item.imageUrl no existe, pero los demás datos sí deberían aparecer */}
                             <img src={item.imageUrl} alt={item.name} />
                             <h3>{item.name}</h3>
                             <p>{item.description}</p>
@@ -45,6 +42,5 @@ const ItemListContainer = () => {
 };
 
 export default ItemListContainer;
-
 
 

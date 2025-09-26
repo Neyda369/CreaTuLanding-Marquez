@@ -18,7 +18,6 @@ export const CartProvider = ({ children }) => {
     const addItem = (productToAdd, quantity) => {
         setCartItems(prevItems => {
             const existingItem = prevItems.find(item => item.id === productToAdd.id);
-
             if (existingItem) {
                 const newQuantity = existingItem.quantity + quantity;
                 if (newQuantity > productToAdd.stock) {

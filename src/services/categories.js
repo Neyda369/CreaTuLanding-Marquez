@@ -1,12 +1,8 @@
 // src/services/categories.js
 
-import { db } from './firebase.js'; // Importamos la instancia de Firestore
+import { db } from './firebase.js';
 import { collection, getDocs } from 'firebase/firestore';
 
-/**
- * Función para obtener todas las categorías de la colección 'categories'.
- * @returns {Promise<Array<Object>>} Una promesa que resuelve con un array de objetos de categorías.
- */
 export async function getAllCategories() {
     const categoriesCollectionRef = collection(db, 'categories');
     const querySnapshot = await getDocs(categoriesCollectionRef);

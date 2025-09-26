@@ -13,7 +13,6 @@ const NavBar = () => {
             </div>
             <ul className="nav-links">
                 <li><Link to="/">Inicio</Link></li>
-                {/* El enlace de Catálogo lleva a la página de catálogo general */}
                 <li><Link to="/catalogo">Catálogo</Link></li>
                 <li><Link to="/contacto">Contacto</Link></li>
             </ul>

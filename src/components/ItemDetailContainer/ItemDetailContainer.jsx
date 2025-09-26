@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ItemDetail from '../ItemDetail/ItemDetail.jsx';
 import { getProductById } from '../../services/products.js';
-import './ItemDetailContainer.css'; // ✨ Nueva importación del CSS
+import './ItemDetailContainer.css'; 
 
 const ItemDetailContainer = () => {
     const { itemId } = useParams();
